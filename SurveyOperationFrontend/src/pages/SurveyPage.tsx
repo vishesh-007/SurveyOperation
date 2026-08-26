@@ -622,7 +622,7 @@ const SurveyPage = () => {
               >
                 {error}
               </Text>
-            ) : <SurveyTable surveys={surveys} onDelete={handleDeleteSurvey} onEdit={handleEditSurvey} />}
+            ) : <SurveyTable surveys={surveys} pageNumber={pageNumber} pageSize={pageSize} onDelete={handleDeleteSurvey} onEdit={handleEditSurvey} />}
           </div>
 
 

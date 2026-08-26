@@ -12,23 +12,34 @@ import type { Survey } from "../../types/survey";
 
 interface SurveyTableProps {
     surveys: Survey[];
+    pageNumber: number;
+    pageSize:number;
     onEdit: (survey: Survey) => void;
     onDelete: (survey: Survey) => void;
 }
 
 const SurveyTable = ({
     surveys,
+    pageNumber,
+    pageSize,
     onDelete,
     onEdit,
 }: SurveyTableProps) => {
 
     const columns: IColumn[] = [
         {
-            key: "autoNumber",
+            key: "sno",
             name: "S.No.",
-            fieldName: "autoNumber",
             minWidth: 60,
             maxWidth: 70,
+
+            onRender: (_survey: Survey, index?: number) => {
+                return (
+                    (pageNumber - 1) * pageSize +
+                    (index ?? 0) +
+                    1
+                );
+            },
         },
 
         {

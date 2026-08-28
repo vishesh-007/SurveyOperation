@@ -19,7 +19,7 @@ namespace SurveyOperationBackend.Services
         public SurveyService(IMongoClient mongoClient, MongoDbSettings settings)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
-            _surveyCollection = database.GetCollection<SurveyModel>(settings.CollectionName);
+            _surveyCollection = database.GetCollection<SurveyModel>(settings.SurveyCollectionName);
         }
 
 

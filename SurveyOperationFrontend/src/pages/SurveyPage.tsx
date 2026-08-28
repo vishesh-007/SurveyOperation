@@ -12,8 +12,6 @@ import {
   type IDropdownOption,
 } from "@fluentui/react";
 
-import Sidebar from "../components/layout/Sidebar";
-import TopHeader from "../components/layout/TopHeader";
 import Breadcrumb from "../components/layout/Breadcrumb";
 import DeleteDialog from "../components/common/DeleteDialog";
 import SurveyTable from "../components/survey/SurveyTable";
@@ -42,27 +40,6 @@ import SurveyToolbar from "../components/survey/SurveyToolbar";
 
 
 const styles = mergeStyleSets({
-  page: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden",
-  },
-
-  body: {
-    display: "flex",
-    flex: 1,
-    minHeight: 0,
-  },
-
-  content: {
-    flex: 1,
-    minWidth: 0,
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: "#ffffff",
-  },
-
   titleSection: {
     padding: "10px 14px 4px 14px",
   },
@@ -536,115 +513,107 @@ const SurveyPage = () => {
   );
 
   return (
-    <div className={styles.page}>
-      <TopHeader />
+    <div>
+      <Breadcrumb />
 
-      <div className={styles.body}>
-        <Sidebar />
-
-        <main className={styles.content}>
-          <Breadcrumb />
-
-          <div className={styles.titleSection}>
-            <Text className={styles.title}>
-              Surveys
-            </Text>
-          </div>
-
-          <div className={styles.tabs}>
-            <div className={styles.tab}>
-              Surveys
-            </div>
-          </div>
-
-          <SurveyToolbar
-            search={search}
-            hasFilters={
-              Object.keys(filters).length > 0
-            }
-            activeFiltersText={
-              Object.entries(filters)
-                .map(
-                  ([key, value]) =>
-                    `${key} = ${value}`
-                )
-                .join(" | ")
-            }
-            onAddSurvey={() => {
-              setEditingSurvey(null);
-              setShowAddSurveyPanel(true);
-            }}
-            onRefresh={fetchSurveys}
-            onDownload={handleDownload}
-            onSearchChange={(value) => {
-              setPageNumber(1);
-              setSearch(value);
-            }}
-            onSearchClear={() => {
-              setPageNumber(1);
-              setSearch("");
-            }}
-            onAddFilter={() =>
-              setShowFilter(true)
-            }
-            onClearFilters={handleClearFilters}
-            filterButtonRef={filterButtonRef}
-          />
-
-
-          {showFilter && (
-            <SurveyFilter
-              target={filterButtonRef.current}
-              onDismiss={() =>
-                setShowFilter(false)
-              }
-              onApply={handleApplyFilter}
-              onRemove={handleRemoveFilter}
-            />
-          )}
-
-
-          {/* SurveyTable */}
-          <div className={styles.tableContainer}>
-            {loading ? (
-              <Spinner
-                size={SpinnerSize.medium}
-                label="Loading surveys..."
-              />
-            ) : error ? (
-              <Text
-                styles={{
-                  root: {
-                    padding: 20,
-                    color: "#a4262c",
-                  },
-                }}
-              >
-                {error}
-              </Text>
-            ) : <SurveyTable surveys={surveys} pageNumber={pageNumber} pageSize={pageSize} onDelete={handleDeleteSurvey} onEdit={handleEditSurvey} />}
-          </div>
-
-
-
-          {/*DeleteDialog*/}
-          <DeleteDialog showDeleteDialog={showDeleteDialog} cancelDeleteSurvey={cancelDeleteSurvey} confirmDeleteSurvey={confirmDeleteSurvey} />
-
-
-
-          {/* SurveyPagination component */}
-          <SurveyPagination
-            pageNumber={pageNumber}
-            pageSize={pageSize}
-            totalRecords={totalRecords}
-            totalPages={totalPages}
-            pageNumbers={pageNumbers}
-            pageSizeOptions={pageSizeOptions}
-            onPageSizeChange={handlePageSizeChange}
-            onPageChange={setPageNumber}
-          />
-        </main>
+      <div className={styles.titleSection}>
+        <Text className={styles.title}>
+          Surveys
+        </Text>
       </div>
+
+      {/* <div className={styles.tabs}>
+        <div className={styles.tab}>
+          Surveys
+        </div>
+      </div> */}
+
+      <SurveyToolbar
+        search={search}
+        hasFilters={
+          Object.keys(filters).length > 0
+        }
+        activeFiltersText={
+          Object.entries(filters)
+            .map(
+              ([key, value]) =>
+                `${key} = ${value}`
+            )
+            .join(" | ")
+        }
+        onAddSurvey={() => {
+          setEditingSurvey(null);
+          setShowAddSurveyPanel(true);
+        }}
+        onRefresh={fetchSurveys}
+        onDownload={handleDownload}
+        onSearchChange={(value) => {
+          setPageNumber(1);
+          setSearch(value);
+        }}
+        onSearchClear={() => {
+          setPageNumber(1);
+          setSearch("");
+        }}
+        onAddFilter={() =>
+          setShowFilter(true)
+        }
+        onClearFilters={handleClearFilters}
+        filterButtonRef={filterButtonRef}
+      />
+
+
+      {showFilter && (
+        <SurveyFilter
+          target={filterButtonRef.current}
+          onDismiss={() =>
+            setShowFilter(false)
+          }
+          onApply={handleApplyFilter}
+          onRemove={handleRemoveFilter}
+        />
+      )}
+
+
+      {/* SurveyTable */}
+      <div className={styles.tableContainer}>
+        {loading ? (
+          <Spinner
+            size={SpinnerSize.medium}
+            label="Loading surveys..."
+          />
+        ) : error ? (
+          <Text
+            styles={{
+              root: {
+                padding: 20,
+                color: "#a4262c",
+              },
+            }}
+          >
+            {error}
+          </Text>
+        ) : <SurveyTable surveys={surveys} pageNumber={pageNumber} pageSize={pageSize} onDelete={handleDeleteSurvey} onEdit={handleEditSurvey} />}
+      </div>
+
+
+
+      {/*DeleteDialog*/}
+      <DeleteDialog showDeleteDialog={showDeleteDialog} cancelDeleteSurvey={cancelDeleteSurvey} confirmDeleteSurvey={confirmDeleteSurvey} />
+
+
+
+      {/* SurveyPagination component */}
+      <SurveyPagination
+        pageNumber={pageNumber}
+        pageSize={pageSize}
+        totalRecords={totalRecords}
+        totalPages={totalPages}
+        pageNumbers={pageNumbers}
+        pageSizeOptions={pageSizeOptions}
+        onPageSizeChange={handlePageSizeChange}
+        onPageChange={setPageNumber}
+      />
 
 
 

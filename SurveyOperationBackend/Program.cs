@@ -57,8 +57,27 @@ builder.Services.AddSingleton<IMongoClient>(
 );
 
 
+
+//Azure Blob Storage settings
+var azureStorageSettings = builder.Configuration.GetSection("AzureStorageSettings").Get<AzureStorageSettings>();
+
+builder.Services.AddSingleton(azureStorageSettings);
+
+
+
+
+
 //SurveyService 
 builder.Services.AddScoped<SurveyService>();
+
+//AzureBlobStorageService
+builder.Services.AddScoped<AzureBlobStorageService>();
+
+//PracticeDataRequestService
+builder.Services.AddScoped<PracticeDataRequestService>();
+
+
+
 
 builder.Services.AddCors(options =>
 {

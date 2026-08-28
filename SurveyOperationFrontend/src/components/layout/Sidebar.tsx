@@ -6,22 +6,21 @@ import {
 
 import {
     ViewDashboardIcon,
-    TaskManagerIcon,
     ContactIcon,
     DocumentApprovalIcon,
-    CalendarIcon,
-    PeopleIcon,
-    ReportDocumentIcon,
-    TeamworkIcon,
-    MoneyIcon,
 } from "@fluentui/react-icons-mdl2";
 
 import type { ReactNode } from "react";
 
+import {
+    useLocation,
+    useNavigate,
+} from "react-router-dom";
+
 const styles = mergeStyleSets({
     sidebar: {
-        width: 182,
-        height: "100vh",
+        width: 250,
+        height: "100%",
         backgroundColor: "#ffffff",
         borderRight: "1px solid #e1e1e1",
         display: "flex",
@@ -81,23 +80,33 @@ const styles = mergeStyleSets({
     section: {
         marginBottom: 3,
     },
+
+    subMenu: {
+        marginLeft: 20,
+    },
 });
 
 interface MenuItemProps {
     icon: ReactNode;
     text: string;
     active?: boolean;
+    onClick?: () => void;
 }
 
 const MenuItem = ({
     icon,
     text,
     active = false,
+    onClick,
 }: MenuItemProps) => {
+
     return (
         <div
-            className={`${styles.menuItem} ${active ? styles.activeItem : ""
+            className={`${styles.menuItem} ${active
+                ? styles.activeItem
+                : ""
                 }`}
+            onClick={onClick}
         >
             <span className={styles.icon}>
                 {icon}
@@ -110,9 +119,22 @@ const MenuItem = ({
     );
 };
 
+
 const Sidebar = () => {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const isSurveysActive =
+        location.pathname === "/surveys";
+
+    const isPracticeDataRequestActive =
+        location.pathname ===
+        "/practice-data-request";
+
     return (
         <aside className={styles.sidebar}>
+
             <IconButton
                 iconProps={{
                     iconName: "GlobalNavButton",
@@ -127,6 +149,7 @@ const Sidebar = () => {
             />
 
             <div className={styles.section}>
+
                 <Text className={styles.sectionTitle}>
                     Operations
                 </Text>
@@ -134,10 +157,28 @@ const Sidebar = () => {
                 <MenuItem
                     icon={<ContactIcon />}
                     text="Surveys"
-                    active
+                    active={
+                        location.pathname === "/surveys"
+                    }
+                    onClick={() =>
+                        navigate("/surveys")
+                    }
+                />
+
+                <MenuItem
+                    icon={<DocumentApprovalIcon />}
+                    text="Practice Data Request Form"
+                    active={
+                        location.pathname ===
+                        "/practice-data-request"
+                    }
+                    onClick={() =>
+                        navigate("/practice-data-request")
+                    }
                 />
 
             </div>
+
         </aside>
     );
 };

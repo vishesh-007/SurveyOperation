@@ -1,11 +1,17 @@
-import './App.css'
-import SurveyPage from './pages/SurveyPage'
+import "./App.css";
 
-function App() {
+import {
+    BrowserRouter,
+} from "react-router-dom";
 
-  return (
-    <SurveyPage />
-  )
-}
+import AppRoutes from "./routes/AppRoutes";
 
-export default App
+const App = () => {
+    return (
+        <BrowserRouter>
+            <AppRoutes />
+        </BrowserRouter>
+    );
+};
+
+export default App;

@@ -12,15 +12,10 @@ using System.Text;
 
 namespace SurveyOperationBackend.Services
 {
-    public class SurveyService
+    public class SurveyService(IMongoClient mongoClient, MongoDbSettings settings)
     {
-        private readonly IMongoCollection<SurveyModel> _surveyCollection;
-
-        public SurveyService(IMongoClient mongoClient, MongoDbSettings settings)
-        {
-            var database = mongoClient.GetDatabase(settings.DatabaseName);
-            _surveyCollection = database.GetCollection<SurveyModel>(settings.SurveyCollectionName);
-        }
+        private readonly IMongoCollection<SurveyModel> _surveyCollection = mongoClient.GetDatabase(settings.DatabaseName)
+                                                                            .GetCollection<SurveyModel>(settings.SurveyCollectionName);
 
 
         public async Task<SurveyModel> CreateSurveyAsync(CreateSurveyDto dto)

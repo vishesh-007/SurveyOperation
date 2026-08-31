@@ -6,22 +6,11 @@ using SurveyOperationBackend.Settings;
 
 namespace SurveyOperationBackend.Services
 {
-    public class PracticeDataRequestService
+    public class PracticeDataRequestService(IMongoClient mongoClient, MongoDbSettings mongoDbSettings, AzureBlobStorageService _azureBlobStorageService)
     {
-        private readonly IMongoCollection<PracticeDataRequestModel> _collection;
 
-        private readonly AzureBlobStorageService _azureBlobStorageService;
-
-
-        public PracticeDataRequestService(IMongoClient mongoClient, MongoDbSettings mongoDbSettings, AzureBlobStorageService azureBlobStorageService)
-        {
-            var database = mongoClient.GetDatabase(mongoDbSettings.DatabaseName);
-
-            _collection = database.GetCollection<PracticeDataRequestModel>(mongoDbSettings.PracticeDataRequestCollectionName);
-
-            _azureBlobStorageService = azureBlobStorageService;
-        }
-
+        private readonly IMongoCollection<PracticeDataRequestModel>_collection = mongoClient.GetDatabase(mongoDbSettings.DatabaseName)
+                                                                                                .GetCollection<PracticeDataRequestModel>(mongoDbSettings.PracticeDataRequestCollectionName);
 
 
         public async Task<PracticeDataRequestModel> CreateAsync(CreatePracticeDataRequestDto dto)

@@ -9,15 +9,9 @@ namespace SurveyOperationBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SurveyController : ControllerBase
+    public class SurveyController(SurveyService surveyService) : ControllerBase
     {
-        private readonly SurveyService _surveyService;
-
-        public SurveyController(SurveyService surveyService)
-        {
-            _surveyService = surveyService;
-        }
-
+        private readonly SurveyService _surveyService = surveyService;
 
         [HttpPost("create")]
         public async Task<ActionResult<APIResponse<SurveyModel>>> CreateSurvey([FromBody] CreateSurveyDto dto)

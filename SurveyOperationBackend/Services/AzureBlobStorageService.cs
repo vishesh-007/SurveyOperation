@@ -6,16 +6,11 @@ using SurveyOperationBackend.Model.PracticeDataRequest;
 
 namespace SurveyOperationBackend.Services
 {
-    public class AzureBlobStorageService
+    public class AzureBlobStorageService(AzureStorageSettings azureStorageSettings)
     {
-        private readonly BlobContainerClient _containerClient;
 
-        public AzureBlobStorageService(AzureStorageSettings azureStorageSettings)
-        {
-            var blobServiceClient = new BlobServiceClient(azureStorageSettings.ConnectionString);
-
-            _containerClient = blobServiceClient.GetBlobContainerClient(azureStorageSettings.ContainerName);
-        }
+        private readonly BlobContainerClient _containerClient = new BlobServiceClient(azureStorageSettings.ConnectionString)
+                                                                .GetBlobContainerClient(azureStorageSettings.ContainerName);
 
 
         public async Task<FileReferenceModel>UploadFileAsync(IFormFile file, string blobName)

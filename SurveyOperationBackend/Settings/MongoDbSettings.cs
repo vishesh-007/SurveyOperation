@@ -9,5 +9,7 @@
         public string SurveyCollectionName { get; set; } = string.Empty;
 
         public string PracticeDataRequestCollectionName { get; set; } = string.Empty;
+
+        public string CounterCollectionName { get; set; } = string.Empty;
     }
 }

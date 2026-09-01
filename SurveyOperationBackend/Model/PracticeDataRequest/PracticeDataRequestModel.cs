@@ -11,6 +11,8 @@ namespace SurveyOperationBackend.Model.PracticeDataRequest
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = string.Empty;
 
+        [BsonElement("Practice_Id")]
+        public long PracticeId { get; set; }
 
         public string PracticeName { get; set; } = string.Empty;
 

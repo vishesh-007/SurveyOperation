@@ -2,7 +2,6 @@ import {
     IconButton,
     Persona,
     PersonaSize,
-    SearchBox,
     mergeStyleSets,
 } from "@fluentui/react";
 

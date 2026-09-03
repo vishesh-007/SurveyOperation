@@ -1,6 +1,4 @@
 import {
-    DefaultButton,
-    Icon,
     TextField,
     mergeStyleSets,
 } from "@fluentui/react";
@@ -62,23 +60,6 @@ const PracticeInformationStep = () => {
     } =
         useFormikContext<PracticeDataRequestValues>();
 
-    const handleFileChange = (
-        fieldName: "logo" | "favicon",
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const file =
-            event.currentTarget.files?.[0] ?? null;
-
-        setFieldValue(
-            fieldName,
-            file
-        );
-
-        setFieldTouched(
-            fieldName,
-            true
-        );
-    };
 
 
     return (

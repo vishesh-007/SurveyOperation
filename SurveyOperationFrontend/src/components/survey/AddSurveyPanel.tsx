@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { CreateSurveyDto, Survey } from "../../types/survey";
 
 import {
     DefaultButton,
-    Icon,
     Panel,
     PanelType,
     PrimaryButton,

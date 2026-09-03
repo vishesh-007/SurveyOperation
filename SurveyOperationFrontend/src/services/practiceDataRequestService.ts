@@ -1,4 +1,3 @@
-import axios from "axios";
 import type {
     PracticeDataRequestValues,
 } from "../types/practice";

@@ -125,13 +125,6 @@ const Sidebar = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const isSurveysActive =
-        location.pathname === "/surveys";
-
-    const isPracticeDataRequestActive =
-        location.pathname ===
-        "/practice-data-request";
-
     return (
         <aside className={styles.sidebar}>
 

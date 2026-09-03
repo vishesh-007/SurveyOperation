@@ -21,9 +21,6 @@ const Breadcrumb = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const isSurvey =
-        location.pathname === "/surveys";
-
     const isPracticeDataRequest =
         location.pathname ===
         "/practice-data-request";

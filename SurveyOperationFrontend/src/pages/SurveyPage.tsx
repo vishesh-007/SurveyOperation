@@ -188,10 +188,10 @@ const SurveyPage = () => {
   const [debouncedSearch, setDebouncedSearch] =
     useState<string>("");
 
-  const [sortBy, setSortBy] =
+  const [sortBy] =
     useState<string>("");
 
-  const [sortOrder, setSortOrder] =
+  const [sortOrder] =
     useState<string>("asc");
 
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);

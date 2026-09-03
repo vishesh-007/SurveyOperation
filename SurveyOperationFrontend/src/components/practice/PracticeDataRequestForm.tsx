@@ -125,8 +125,6 @@ const PracticeDataRequestForm = () => {
 
     const [currentStep, setCurrentStep] = useState<number>(1);
 
-    const [isSubmitted, setIsSubmitted] = useState(false);
-
     const [isSubmitting, setIsSubmitting] = useState(false);
 
 
@@ -147,8 +145,6 @@ const PracticeDataRequestForm = () => {
                 "Practice Data Request created:",
                 response
             );
-
-            setIsSubmitted(true);
 
         } catch (error) {
 

@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useCallback,
   useRef,
   useState,
 } from "react";
@@ -151,6 +152,9 @@ const SurveyPage = () => {
 
   const filterButtonRef =
     useRef<HTMLDivElement>(null);
+
+  const [filterTarget, setFilterTarget] =
+    useState<HTMLDivElement | null>(null);
 
   const [showFilter, setShowFilter] =
     useState(false);
@@ -421,7 +425,7 @@ const SurveyPage = () => {
 
 
 
-  const fetchSurveys = async () => {
+  const fetchSurveys = useCallback(async () => {
     try {
       setLoading(true);
       setError("");
@@ -479,19 +483,19 @@ const SurveyPage = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-
-  useEffect(() => {
-    fetchSurveys();
-  }, [
+  },[
     pageNumber,
     pageSize,
     debouncedSearch,
     filters,
     sortBy,
     sortOrder,
-  ]);
+]);
+
+
+  useEffect(() => {
+    fetchSurveys();
+  }, [fetchSurveys]);
 
 
   // Debounced Search
@@ -555,9 +559,12 @@ const SurveyPage = () => {
           setPageNumber(1);
           setSearch("");
         }}
-        onAddFilter={() =>
-          setShowFilter(true)
-        }
+        onAddFilter={() => {
+          setFilterTarget(
+            filterButtonRef.current
+          );
+          setShowFilter(true);
+        }}
         onClearFilters={handleClearFilters}
         filterButtonRef={filterButtonRef}
       />
@@ -565,7 +572,7 @@ const SurveyPage = () => {
 
       {showFilter && (
         <SurveyFilter
-          target={filterButtonRef.current}
+          target={filterTarget}
           onDismiss={() =>
             setShowFilter(false)
           }
@@ -619,6 +626,7 @@ const SurveyPage = () => {
 
       {/* AddSurveyPanel */}
       <AddSurveyPanel
+        key={editingSurvey?.id ?? "new-survey"}
         isOpen={showAddSurveyPanel}
         editingSurvey={editingSurvey}
         onDismiss={() => {

@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
-import type { CreateSurveyDto, Survey } from "../../types/survey";
+import { useState } from "react";
+import type {
+    CreateSurveyDto,
+    Survey,
+} from "../../types/survey";
 
 import {
     DefaultButton,
@@ -27,7 +30,6 @@ const styles = mergeStyleSets({
         gap: 8,
     },
 });
-
 
 const ratingStyles = {
     ratingStar: {
@@ -75,55 +77,48 @@ const AddSurveyPanel = ({
     onDismiss,
     onSave,
 }: AddSurveyPanelProps) => {
+
     const [username, setUsername] =
-        useState<string>("");
+        useState<string>(
+            editingSurvey?.username ?? ""
+        );
 
     const [accountName, setAccountName] =
-        useState<string>("");
+        useState<string>(
+            editingSurvey?.accountName ?? ""
+        );
 
     const [businessName, setBusinessName] =
-        useState<string>("");
+        useState<string>(
+            editingSurvey?.businessName ?? ""
+        );
 
     const [rating, setRating] =
-        useState<number>(0);
+        useState<number>(
+            editingSurvey?.rating ?? 0
+        );
 
     const [feedback, setFeedback] =
-        useState<string>("");
+        useState<string>(
+            editingSurvey?.feedback ?? ""
+        );
 
     const [showValidation, setShowValidation] =
         useState<boolean>(false);
 
 
-    useEffect(() => {
-        if (editingSurvey) {
-            setUsername(
-                editingSurvey.username
-            );
-
-            setAccountName(
-                editingSurvey.accountName
-            );
-
-            setBusinessName(
-                editingSurvey.businessName
-            );
-
-            setRating(
-                editingSurvey.rating
-            );
-
-            setFeedback(
-                editingSurvey.feedback
-            );
-
-            setShowValidation(false);
-        } else {
-            resetForm();
-        }
-    }, [editingSurvey]);
+    const resetForm = () => {
+        setUsername("");
+        setAccountName("");
+        setBusinessName("");
+        setRating(0);
+        setFeedback("");
+        setShowValidation(false);
+    };
 
 
     const handleSave = async () => {
+
         setShowValidation(true);
 
         if (
@@ -148,19 +143,12 @@ const AddSurveyPanel = ({
         resetForm();
     };
 
+
     const handleDismiss = () => {
         resetForm();
         onDismiss();
     };
 
-    const resetForm = () => {
-        setUsername("");
-        setAccountName("");
-        setBusinessName("");
-        setRating(0);
-        setFeedback("");
-        setShowValidation(false);
-    };
 
     return (
         <Panel
@@ -176,6 +164,7 @@ const AddSurveyPanel = ({
             isFooterAtBottom
             onRenderFooterContent={() => (
                 <div className={styles.footer}>
+
                     <DefaultButton
                         text="Cancel"
                         onClick={handleDismiss}
@@ -189,17 +178,25 @@ const AddSurveyPanel = ({
                         }
                         onClick={handleSave}
                     />
+
                 </div>
             )}
         >
+
             <div className={styles.form}>
+
                 <div className={styles.field}>
                     <TextField
                         label="Username"
                         required
                         value={username}
-                        onChange={(_event, newValue) =>
-                            setUsername(newValue ?? "")
+                        onChange={(
+                            _event,
+                            newValue
+                        ) =>
+                            setUsername(
+                                newValue ?? ""
+                            )
                         }
                         errorMessage={
                             showValidation &&
@@ -210,13 +207,19 @@ const AddSurveyPanel = ({
                     />
                 </div>
 
+
                 <div className={styles.field}>
                     <TextField
                         label="Account name"
                         required
                         value={accountName}
-                        onChange={(_event, newValue) =>
-                            setAccountName(newValue ?? "")
+                        onChange={(
+                            _event,
+                            newValue
+                        ) =>
+                            setAccountName(
+                                newValue ?? ""
+                            )
                         }
                         errorMessage={
                             showValidation &&
@@ -227,13 +230,19 @@ const AddSurveyPanel = ({
                     />
                 </div>
 
+
                 <div className={styles.field}>
                     <TextField
                         label="Business name"
                         required
                         value={businessName}
-                        onChange={(_event, newValue) =>
-                            setBusinessName(newValue ?? "")
+                        onChange={(
+                            _event,
+                            newValue
+                        ) =>
+                            setBusinessName(
+                                newValue ?? ""
+                            )
                         }
                         errorMessage={
                             showValidation &&
@@ -246,6 +255,7 @@ const AddSurveyPanel = ({
 
 
                 <div className={styles.field}>
+
                     <label
                         style={{
                             display: "block",
@@ -254,7 +264,14 @@ const AddSurveyPanel = ({
                             marginBottom: 6,
                         }}
                     >
-                        Rating <span style={{ color: "#a4262c" }}>*</span>
+                        Rating{" "}
+                        <span
+                            style={{
+                                color: "#a4262c",
+                            }}
+                        >
+                            *
+                        </span>
                     </label>
 
                     <Rating
@@ -266,7 +283,9 @@ const AddSurveyPanel = ({
                             _event,
                             newRating
                         ) => {
-                            setRating(newRating ?? 0);
+                            setRating(
+                                newRating ?? 0
+                            );
                         }}
                         styles={ratingStyles}
                     />
@@ -275,7 +294,8 @@ const AddSurveyPanel = ({
                         rating === 0 && (
                             <div
                                 style={{
-                                    color: "#a4262c",
+                                    color:
+                                        "#a4262c",
                                     fontSize: 12,
                                     marginTop: 4,
                                 }}
@@ -283,22 +303,32 @@ const AddSurveyPanel = ({
                                 Rating is required.
                             </div>
                         )}
+
                 </div>
 
 
                 <div className={styles.field}>
+
                     <TextField
                         label="Feedback"
                         value={feedback}
-                        onChange={(_event, newValue) =>
-                            setFeedback(newValue ?? "")
+                        onChange={(
+                            _event,
+                            newValue
+                        ) =>
+                            setFeedback(
+                                newValue ?? ""
+                            )
                         }
                         multiline
                         rows={5}
                         resizable={false}
                     />
+
                 </div>
+
             </div>
+
         </Panel>
     );
 };
